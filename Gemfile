@@ -13,7 +13,7 @@ gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-# gem 'jbuilder', '~> 2.5'
+gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -35,6 +35,12 @@ gem 'rbnacl'
 gem 'google-protobuf'
 
 group :development, :test do
+  gem 'faker', '>= 1.4.3'
+  gem 'factory_bot_rails'
+  gem 'database_cleaner', '>= 1.7.0'
+  gem 'minitest-rails'
+  gem 'rr', require: false
+  gem 'timecop'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end

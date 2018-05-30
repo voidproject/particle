@@ -16,6 +16,7 @@ class Api::PostsController < ApplicationController
     if params[:since]
       @posts = @posts.where("id > ?", params[:since])
     end
+
     render template: '/api/posts'
   end
 

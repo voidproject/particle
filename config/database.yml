@@ -12,7 +12,7 @@ test:
   encoding: unicode
   username: postgres
   password: <%= ENV['POSTGRES_ENV_POSTGRES_PASSWORD'] %>
-  database: <%= ENV['DB_TEST'] %>
+  database: <%= ENV['PARTICLE_DATABASE_NAME_TEST'] %>
   host: <%= ENV['POSTGRES_PORT_5432_TCP_ADDR'] %>
   pool: 5
 
