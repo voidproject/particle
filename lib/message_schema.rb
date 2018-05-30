@@ -150,7 +150,31 @@ def publish_post(keys, title, text = '', channel = nil, seq = 0, previous = nil,
   publish_message(keys, "post", {title: title, text: text, channel: channel}, seq, previous, timestamp)
 end
 
-def save_message()
+def add_message(msg)
+  msg = msg.dup
+  case
+  when msg[:type] == 'post' && msg[:content][:root]
+    msg[:root] = msg[:content][:root]
+  when msg[:type] == 'post' && msg[:content][:channel]
+    msg[:channel] = msg[:content][:channel]
+  when msg[:type] == 'contact' && msg[:content][:value] == 1
+    Contact.find_or_create_by(source: msg[:author], target: msg[:content][:contact])
+  when msg[:type] == 'contact' && msg[:content][:value] == -1
+    Contact.find_by(source: msg[:author], target: msg[:content][:contact]).delete
+  when msg[:type] == 'vote' && msg[:content][:value] == 1
+    Vote.find_or_create_by(source: msg[:author], target: msg[:content][:link])
+  when msg[:type] == 'vote' && msg[:content][:value] == -1
+    Vote.find_by(source: msg[:author], target: msg[:content][:link]).delete
+  when msg[:type] == 'about'
+    User.find_by(key: msg[:author]).update(name: msg[:content][:name], image: msg[:image])
+  end
+
+  msg[:raw] = JSON.dump(msg)
+  msg[:msgtype] = msg[:type]
+  msg.delete(:type)
+  message = Message.create(msg)
+  User.find_by(key: msg[:author]).update(seq: msg[:seq], previous: msg[:key])
+  message
 end
 
 def multibox(msg, recipients)
