@@ -118,8 +118,6 @@ def encode_message(keys, msg)
 
   pubkey = keys[:public]
   prvkey = keys[:prvkey]
-  p "prvkey"
-  p keys
   sig = sign_data(prvkey, msghash)
   key = '%' + Base64.urlsafe_encode64(msghash) + '~sha256'
 
@@ -137,19 +135,22 @@ end
 
 def publish_message(keys, type, item, seq = 0, previous = nil, timestamp = 0)
   msg = {
-    author: keys[:public],
-    seq: seq,
+    author: keys[:id],
+    seq: (seq + 1),
     type: type,
     timestamp: timestamp,
     previous: previous,
-    content: item,
+    content: item.compact,
   }
 
   encode_message(keys, msg)
 end
 
-def publish_post(keys, title, text, channel = nil)
-  publish_message(keys, "post", {title: title, text: text, channel: channel})
+def publish_post(keys, title, text = '', channel = nil, seq = 0, previous = nil, timestamp = 0)
+  publish_message(keys, "post", {title: title, text: text, channel: channel}, seq, previous, timestamp)
+end
+
+def save_message()
 end
 
 def multibox(msg, recipients)
@@ -164,5 +165,9 @@ def openbox(msg, recipients)
   nonce = randombytes(24)
   key = randombytes(32)
   onetime = keypair()
+end
+
+def get_time()
+  Time.now.to_i * 1000
 end
 

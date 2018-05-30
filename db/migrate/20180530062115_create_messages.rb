@@ -8,7 +8,7 @@ class CreateMessages < ActiveRecord::Migration[5.2]
       t.string   :previous
       t.bigint   :timestamp
       t.bigint   :localtime
-      t.string   :type
+      t.string   :msgtype
       t.text     :raw
       t.jsonb    :content, default: '{}'
       t.integer  :subposts_count, default: 0
