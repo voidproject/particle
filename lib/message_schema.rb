@@ -192,6 +192,6 @@ def openbox(msg, recipients)
 end
 
 def get_time()
-  Time.now.to_i * 1000
+  (Time.now.to_f * 1000).to_i
 end
 

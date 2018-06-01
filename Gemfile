@@ -33,6 +33,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'rbnacl'
 gem 'google-protobuf'
+gem 'cztop'
+gem 'rest-client'
 
 group :development, :test do
   gem 'faker', '>= 1.4.3'
