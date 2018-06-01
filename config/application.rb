@@ -25,6 +25,8 @@ module Particle
     config.autoload_paths << Rails.root.join("lib")
     config.eager_load_paths << Rails.root.join("lib")
 
+    config.action_cable.mount_path = '/cable'
+
     require "#{Rails.root}/lib/message_schema"
 
     # Settings in config/environments/* take precedence over those specified here.
