@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_30_063915) do
+ActiveRecord::Schema.define(version: 2018_05_31_095352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,23 @@ ActiveRecord::Schema.define(version: 2018_05_30_063915) do
     t.datetime "created_at", null: false
   end
 
+  create_table "peers", force: :cascade do |t|
+    t.string "key"
+    t.string "host"
+    t.integer "port"
+    t.integer "local_latest", default: 0
+    t.integer "remote_latest", default: 0
+    t.integer "failure", default: 0
+    t.float "rtt", default: 0.0
+    t.float "skew", default: 0.0
+    t.boolean "active", default: true
+    t.boolean "is_client", default: true
+    t.datetime "state_change"
+    t.datetime "created_at", null: false
+    t.jsonb "state", default: "{}"
+    t.jsonb "notes", default: "{}"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "key"
     t.string "pubkey"
@@ -59,6 +76,7 @@ ActiveRecord::Schema.define(version: 2018_05_30_063915) do
     t.boolean "is_blocking", default: false
     t.boolean "is_following", default: true
     t.datetime "created_at", null: false
+    t.integer "updated", default: 0
   end
 
   create_table "votes", force: :cascade do |t|
