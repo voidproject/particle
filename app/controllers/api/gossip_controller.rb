@@ -6,7 +6,7 @@ class Api::GossipController < ApplicationController
   end
 
   def connect
-    ret = Gossip.on_connect(params[:key], params[:port], params[:host])
+    ret = Peer.on_connect(params[:key], params[:port], params[:host])
     render json: ret
   end
 
@@ -16,7 +16,12 @@ class Api::GossipController < ApplicationController
   end
 
   def sync_vector_clocks
-    clocks = params.require(:clocks).permit!.to_h
+    clocks = 
+      begin
+        params.require(:clocks).permit!.to_h
+      rescue Exception => e
+        {}
+      end
     ret = Peer.on_sync_vector_clocks(params[:key], clocks, params[:latest].to_i, params[:remote_latest].to_i)
     render json: ret
   end

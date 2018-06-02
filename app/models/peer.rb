@@ -1,5 +1,20 @@
 class Peer < ApplicationRecord
 
+  # todo: move `Message.last.try(:id) || 0` to redis
+  # todo: move `User.where('updated > ?', latest).pluck(:key, :seq).to_h` to redis
+  # todo: redis based monotonic clock
+  # todo: message request pagination
+  # todo: sync topic from the best peer
+  # todo: sync range to -1 (latest)
+  # todo: handle out-of-order message and duplicate message
+  # todo: handle disordered message
+  # todo: reconnect most recent active peers
+  # todo: keep user `updated`
+  # todo: track following list concisely
+  # todo: resolve host and port correctly
+  # todo: add bt tracker
+  # todo: peer exchange
+
   def local_key
     ENV['PARTICLE_ID']
   end
@@ -65,6 +80,8 @@ class Peer < ApplicationRecord
     }
 
     self.save
+
+    result
   end
 
   def self.on_sync_vector_clocks(key, remote_clocks, latest = 0, remote_latest = 0)
@@ -119,9 +136,11 @@ class Peer < ApplicationRecord
       msgs = Message.where(author: key, seq: (note[:from].to_i)..(note[:to].to_i)).order('seq asc').all
       resp[key] = msgs
     end
-    if resp.is_present?
+    if resp.present?
       result = send_data('receive_message', {key: self.local_key, msgs: resp})
     end
+
+    result
   end
 
   def self.on_request_message(key, notes)
