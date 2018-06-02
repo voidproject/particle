@@ -126,7 +126,7 @@ class Peer < ApplicationRecord
 
     result[:results].each do |topickey, messages|
       messages.each do |msg|
-        # todo : verify message
+        verify_message(msg)
         add_message(msg)
       end
     end
@@ -165,7 +165,7 @@ class Peer < ApplicationRecord
   def self.on_receive_message(key, notes)
     notes.each do |topickey, messages|
       messages.each do |msg|
-        # todo : verify message
+        verify_message(msg)
         add_message(msg)
       end
     end

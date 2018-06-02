@@ -61,10 +61,11 @@ def verify_hash(pubkey, data, signed)
 end
 
 def verify_message(message)
-  key = message['key']
-  author = message['author']
-  item = message['content'].compact
-  case message['type']
+  message.symbolize_keys
+  key = message[:key]
+  author = message[:author]
+  item = message[:content].compact
+  case message[:type]
   when 'post'
     item_data = PostProto.encode(PostProto.new(item))
   when 'contact'
@@ -76,16 +77,16 @@ def verify_message(message)
   end
 
   data = {
-    author: message['author'],
-    timestamp: message['timestamp'],
-    seq: message['seq'],
-    previous: message['previous'],
-    type: message['type'],
+    author: message[:author],
+    timestamp: message[:timestamp],
+    seq: message[:seq],
+    previous: message[:previous],
+    type: message[:type],
     content: item_data,
   }
   data = MessageProto.encode(MessageProto.new(data.compact))
 
-  verify_hash(message['author'], message['key'], message['sig'])
+  verify_hash(message[:author], message[:key], message[:sig])
 end
 
 def encode_message(keys, msg)
