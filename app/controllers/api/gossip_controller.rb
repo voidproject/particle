@@ -1,50 +1,43 @@
 class Api::GossipController < ApplicationController
 
   def broadcast
-      ActionCable.server.broadcast 'room_channel', content:  'content'
-      render json: 'ok'
+    ActionCable.server.broadcast 'room_channel', content:  'content'
+    render json: 'ok'
   end
 
   def connect
-    Peer.create(key: params[:key], port: params[:port], host: params[:host], is_client: false, state_change: get_time)
+    Gossip.on_connect(params[:key], params[:port], params[:host])
 
     render json: {
-      key: 'alice',
-      host: 'localhost',
-      port: 3000,
+      key: ENV['PARTICLE_ID'],
+      host: ENV['PARTICLE_HOST'],
+      port: ENV['PARTICLE_SYNCPORT'],
     }
   end
 
   def ping
     Peer.find_by(key: params[:key]).update(state_change: get_time)
-
-    render json: {
-      key: 'alice',
-      source: params[:key],
-    }
+    render json: { result: 'ok' }
   end
 
   def sync_vector_clocks
-    peer_id = params[:key]
-    remote_clocks = params[:clocks]
-    local_latest = Message.last.try(:id)
-    local_clocks = User.pluck(:key, :seq).to_h
-
-    peer = Peer.find_by(key: params[:key])
-    peer.state = remote_clocks
-
-    render json: { clocks: local_clocks, latest: local_latest }
+    clocks = params.require(:clocks).permit!.to_h
+    gossip = Gossip.new(params[:key])
+    ret = gossip.on_sync_vector_clocks(clocks, params[:latest].to_i, params[:remote_latest].to_i)
+    render json: ret
   end
 
-  def sync_follows
-    peer_id = params[:key]
-    peer = Peer.find_by(key: params[:key])
-    peer.state.merge(params[:clocks])
-    peer.topic_latest = params[:topic_latest]
-    peer.save
+  def request_message
+    params.permit(:key, :notes)
+    gossip = Gossip.new(params[:key])
+    ret = gossip.on_request_message(params[:notes] || [])
+    render json: ret
   end
 
-  def pull_follows
+  def receive_message
+    gossip = Gossip.new(params[:key])
+    ret = gossip.on_receive_message(params[:msgs] || [])
+    render json: ret
   end
 
 end

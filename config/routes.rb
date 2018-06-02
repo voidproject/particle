@@ -7,8 +7,12 @@ Rails.application.routes.draw do
     end
 
     namespace 'gossip', defaults: {format: :json} do
-      get 'broadcast'
-      get 'sync_vector_clocks'
+      post 'broadcast'
+      post 'connect'
+      post 'ping'
+      post 'sync_vector_clocks'
+      post 'request_message'
+      post 'receive_message'
     end
   end
 
