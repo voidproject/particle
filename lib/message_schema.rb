@@ -158,15 +158,15 @@ def add_message(msg)
     msg[:root] = msg[:content][:root]
   when msg[:type] == 'post' && msg[:content][:channel]
     msg[:channel] = msg[:content][:channel]
-  when msg[:type] == 'contact' && msg[:content][:value] == 1
+  when msg[:type] == 'contact' && msg[:content][:following]
     Contact.find_or_create_by(source: msg[:author], target: msg[:content][:contact])
     # todo: should create user automatically
-  when msg[:type] == 'contact' && msg[:content][:value] == -1
+  when msg[:type] == 'contact' && !msg[:content][:following]
     Contact.find_by(source: msg[:author], target: msg[:content][:contact]).delete
     # todo: should check user following automatically
   when msg[:type] == 'vote' && msg[:content][:value] == 1
     Vote.find_or_create_by(source: msg[:author], target: msg[:content][:link])
-  when msg[:type] == 'vote' && msg[:content][:value] == -1
+  when msg[:type] == 'vote' && msg[:content][:value] == 0
     Vote.find_by(source: msg[:author], target: msg[:content][:link]).delete
   when msg[:type] == 'about'
     User.find_by(key: msg[:author]).update(name: msg[:content][:name], image: msg[:image])

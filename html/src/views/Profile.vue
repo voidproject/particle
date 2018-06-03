@@ -6,16 +6,16 @@
     <img v-bind:src="user.image ? ('/uploads/' + user.image) : 'https://api.adorable.io/avatars/256/alice@adorable.png'" class="user-avatar">
     <div class="contact">
       <h1 class="username">{{user && user.name}}</h1>
-      <h3 class="name">{{user && user.id}}</h3>
+      <h3 class="name">{{user && user.key}}</h3>
     </div>
     <hr>
     <div class="meta">
       <ul>
         <li v-if="!following">
-          <a @click="followkey(user.id)">follow</a>
+          <a @click="followkey(user.key)">follow</a>
         </li>
         <li v-if="following">
-          <a @click="unfollowkey(user.id)">unfollow</a>
+          <a @click="unfollowkey(user.key)">unfollow</a>
         </li>
       </ul>
 
