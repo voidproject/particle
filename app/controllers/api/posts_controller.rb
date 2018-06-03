@@ -1,13 +1,18 @@
 class Api::PostsController < ApplicationController
 
-  def show
-    p params[:id]
+  def get_message
     @user = User.find_by(pubkey: params[:token])
-    @post = Message.find_by(key: params[:id])
+    @post = Message.find_by(key: params[:key])
     render template: '/api/post'
   end
 
-  def index
+  def get_messages_by_root
+    @user = User.find_by(pubkey: params[:token])
+    @posts = Message.where(root: params[:key], blocked: false).order('id desc')
+    render template: '/api/posts'
+  end
+
+  def get_home_feed
     @user = User.find_by(pubkey: params[:token])
     @posts = Message.where(root: nil, blocked: false).order('id desc')
     if params[:pubkey]
@@ -27,14 +32,21 @@ class Api::PostsController < ApplicationController
     render template: '/api/posts'
   end
 
-  def channel
+  def get_channel_messages
     @user = User.find_by(pubkey: params[:token])
-    @posts = Message.where(channel: params[:channel]).order('id desc').page(params[:page])
+    @posts = Message.where(channel: params[:channel]).order('id desc')
     render template: '/api/posts'
   end
 
-  def channels
+  def get_channels
     render json: { channels: Message.pluck(:channel).uniq.select {|x| x.present? } }
+  end
+
+  def add
+    message = JSON.parse(params[:message], :symbolize_names => true)
+    message = add_message(message)
+    @post = message
+    render template: '/api/post'
   end
 
 end
