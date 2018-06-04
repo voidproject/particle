@@ -163,11 +163,24 @@ def add_message(msg)
   when msg[:type] == 'post' && msg[:content][:channel]
     msg[:channel] = msg[:content][:channel]
   when msg[:type] == 'contact' && msg[:content][:following]
-    Contact.find_or_create_by(source: msg[:author], target: msg[:content][:contact])
-    # todo: should create user automatically
+    if msg[:content][:contact] != msg[:author]
+      Contact.find_or_create_by(source: msg[:author], target: msg[:content][:contact])
+      # todo: should create user automatically
+      source_user = User.find_by(key: msg[:author])
+      taregt_user = User.find_by(key: msg[:content][:contact])
+      if source_user.state == 'original' && taregt_user.blank?
+        User.create(key: msg[:content][:contact], state: 'general')
+      elsif source_user.state == 'original' && taregt_user.state == 'unfollowed'
+        taregt_user.update(state: 'general')
+      end
+    end
   when msg[:type] == 'contact' && !msg[:content][:following]
     Contact.find_by(source: msg[:author], target: msg[:content][:contact]).delete
     # todo: should check user following automatically
+    existed = Contact.joins(:source_user).where(users: {state: 'original'}).where(target: msg[:content][:contact]).exists?
+    unless existed
+      User.find_by(key: msg[:content][:contact]).update(is_following: false, state: 'unfollowed')
+    end
   when msg[:type] == 'vote' && msg[:content][:value] == 1
     Vote.find_or_create_by(source: msg[:author], target: msg[:content][:link])
   when msg[:type] == 'vote' && msg[:content][:value] == 0

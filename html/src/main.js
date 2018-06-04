@@ -102,7 +102,13 @@ Vue.prototype.uploadfile = function (data) {
 }
 
 Vue.prototype.follow = function (contact) {
-  return this.add('contact', {following: true, contact: contact, blocking: false})
+  let keys = JSON.parse(localStorage.getItem('keys'))
+  if (keys.id == contact) {
+    alert('please do not follow yourself')
+    return {}
+  } else {
+    return this.add('contact', {following: true, contact: contact, blocking: false})
+  }
 }
 
 Vue.prototype.unfollow = function (contact) {

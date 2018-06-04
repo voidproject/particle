@@ -1,7 +1,7 @@
 class Api::UsersController < ApplicationController
 
   def add_user
-    @user = User.find_or_create_by(key: params[:key])
+    @user = User.find_or_create_by(key: params[:key]).update(state: 'original')
     render template: '/api/user'
   end
 
