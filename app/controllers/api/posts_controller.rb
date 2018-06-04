@@ -8,18 +8,17 @@ class Api::PostsController < ApplicationController
 
   def get_messages_by_root
     @user = User.find_by(pubkey: params[:token])
-    @posts = Message.where(root: params[:key], blocked: false).order('id desc')
+    @posts = Message.where(root: params[:key], blocked: false, msgtype: 'post').includes(:user).order('id desc')
     render template: '/api/posts'
   end
 
   def get_home_feed
-    @user = User.find_by(pubkey: params[:token])
-    @posts = Message.where(root: nil, blocked: false).order('id desc')
+    @posts = Message.where(root: nil, blocked: false, msgtype: 'post').includes(:user).order('id desc').limit(20)
     if params[:pubkey]
       @posts = @posts.where(author: params[:pubkey])
     end
     if params[:since]
-      @posts = @posts.where("id > ?", params[:since])
+      @posts = @posts.where("id < ?", params[:since])
     end
 
     render template: '/api/posts'
@@ -28,13 +27,16 @@ class Api::PostsController < ApplicationController
   def likes
     @user = User.find_by(pubkey: params[:pubkey])
     @likes = Vote.where(source: params[:pubkey]).pluck(:target)
-    @posts = Message.where(key: likes, msgtype: 'post').order('id desc')
+    @posts = Message.where(key: likes, blocked: false, msgtype: 'post').includes(:user).order('id desc').limit(20)
     render template: '/api/posts'
   end
 
   def get_channel_messages
     @user = User.find_by(pubkey: params[:token])
-    @posts = Message.where(channel: params[:channel]).order('id desc')
+    @posts = Message.where(channel: params[:channel], blocked: false, msgtype: 'post').includes(:user).order('id desc').limit(20)
+    if params[:since]
+      @posts = @posts.where("id < ?", params[:since])
+    end
     render template: '/api/posts'
   end
 

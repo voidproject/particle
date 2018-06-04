@@ -49,8 +49,8 @@ export default {
   methods: {
     nextpage () {
       console.log("next")
-      this.getHome(this.messages[this.messages.length-1].timestamp).then((messages) => {
-        this.messages = this.messages.concat(messages.data)
+      this.getHome(this.messages[this.messages.length-1].id).then((messages) => {
+        this.messages = this.messages.concat(messages.data.posts)
         console.log(messages.data)
       })
     }
