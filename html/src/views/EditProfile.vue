@@ -6,7 +6,7 @@
       <label class="control-label" for="user_username">Name</label>
       <div class="form-control">
         <input id="user_username" name="user[username]" type="text" value="" v-model="name">
-        <p>People can mention you as @username</p>
+        <p>People can mention you as @name</p>
       </div>
     </div>
 
@@ -14,7 +14,7 @@
       <div class="control-label">Avatar</div>
       <div class="form-control -avatar">
         <img v-bind:src="image ? ('/uploads/' + image) : 'https://api.adorable.io/avatars/256/alice@adorable.png'" class="user-avatar" @click="upload">
-        <p>Set at gravatar.com</p>
+        <p>Click to Upload Image</p>
         <input type="file" id="upload" name="imagefile" style="opacity: 0; position: absolute; z-index: 10;" />
       </div>
     </div>
@@ -42,8 +42,8 @@ export default {
   created () {
     let keys = JSON.parse(localStorage.getItem('keys'))
     this.getUser(keys.id).then((resp) => {
-      this.name = resp.data.name
-      this.image = resp.data.image
+      this.name = resp.data.user.name
+      this.image = resp.data.user.image
     })
 
     setTimeout(() => {

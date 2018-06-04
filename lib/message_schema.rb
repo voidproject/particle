@@ -169,7 +169,7 @@ def add_message(msg)
   when msg[:type] == 'vote' && msg[:content][:value] == 0
     Vote.find_by(source: msg[:author], target: msg[:content][:link]).delete
   when msg[:type] == 'about'
-    User.find_by(key: msg[:author]).update(name: msg[:content][:name], image: msg[:image])
+    User.find_by(key: msg[:author]).update(name: msg[:content][:name], image: msg[:content][:image])
   end
 
   msg[:raw] = JSON.dump(msg)

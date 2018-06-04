@@ -98,7 +98,7 @@ Vue.prototype.hasLiked = function (target) {
 }
 
 Vue.prototype.uploadfile = function (data) {
-  return this.$http.post(baseurl + '/api/uploadfile/', data, {headers: { 'content-type': 'multipart/form-data' } })
+  return this.$http.post(baseurl + '/api/upload/', data, {headers: { 'content-type': 'multipart/form-data' } })
 }
 
 Vue.prototype.follow = function (contact) {

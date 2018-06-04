@@ -30,3 +30,4 @@
 .env.*
 *.pid
 scripts
+public/uploads

@@ -1,3 +1,6 @@
+require 'digest'
+require 'base64'
+
 class Api::PostsController < ApplicationController
 
   def get_message
@@ -49,6 +52,12 @@ class Api::PostsController < ApplicationController
     message = add_message(message)
     @post = message
     render template: '/api/post'
+  end
+
+  def upload
+    digest = Base64.urlsafe_encode64(Digest::SHA2.file(params[:file].tempfile).digest)
+    File.rename params[:file].tempfile.path, "public/uploads/#{digest}"
+    render json: { result: 'ok', hash: digest, path: "/uploads/#{digest}" }
   end
 
 end
