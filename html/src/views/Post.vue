@@ -71,7 +71,7 @@
         <div class="avatar">
           <img  v-bind:src="msg.attached.image ? ('/uploads/' + msg.attached.image) : 'https://api.adorable.io/avatars/256/alice@adorable.png'" class="user-avatar -borderless">
         </div>
-        <router-link class="username" :to="{ name: 'profile', params: {key: msg.author} }">{{msg.user && msg.user.name || msg.author}}</router-link>
+        <router-link class="username" :to="{ name: 'profile', params: {key: msg.author} }">{{msg.attached && msg.attached.name || msg.author}}</router-link>
         <abbr class="time">{{msg.timestamp | dateformat}}</abbr>
       </div>
 

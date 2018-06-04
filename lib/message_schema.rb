@@ -156,6 +156,10 @@ def add_message(msg)
   case
   when msg[:type] == 'post' && msg[:content][:root]
     msg[:root] = msg[:content][:root]
+    rootmsg = Message.find_by(key: msg[:content][:root])
+    if rootmsg
+      rootmsg.increment!(:subposts_count)
+    end
   when msg[:type] == 'post' && msg[:content][:channel]
     msg[:channel] = msg[:content][:channel]
   when msg[:type] == 'contact' && msg[:content][:following]
