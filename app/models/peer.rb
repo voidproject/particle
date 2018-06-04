@@ -45,9 +45,9 @@ class Peer < ApplicationRecord
 
   def self.on_connect(key, host, port)
     if peer = Peer.find_by(key: key)
-      peer.update(port: port, host: host, state_change: get_time)
+      peer.update(port: port, host: host, state_change: Time.now)
     else
-      peer = Peer.create(key: key, port: port, host: host, is_client: false, state_change: get_time)
+      peer = Peer.create(key: key, port: port, host: host, is_client: false, state_change: Time.now)
     end
 
     { key: ENV['PARTICLE_ID'], host: ENV['PARTICLE_HOST'], port: ENV['PARTICLE_SYNCPORT'] }
@@ -176,7 +176,7 @@ class Peer < ApplicationRecord
   end
 
   def self.on_ping(key)
-    Peer.find_by(key: key).update(state_change: get_time)
+    Peer.find_by(key: key).update(state_change: Time.now)
     { result: 'pong' }
   end
 

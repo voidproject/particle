@@ -11,7 +11,7 @@ class Api::GossipController < ApplicationController
   end
 
   def ping
-    ret = Peer.on_ping
+    ret = Peer.on_ping(params[:key])
     render json: ret
   end
 

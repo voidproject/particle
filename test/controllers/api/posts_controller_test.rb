@@ -5,12 +5,12 @@ class Api::PostsControllerTest < ActionDispatch::IntegrationTest
   test "post" do
     create_data
 
-    get '/api/posts'
+    post '/api/get_home_feed'
     puts response.body
 
     msgkey = JSON.parse(response.body)["posts"].first["key"]
 
-    get '/api/posts/' + URI.escape(msgkey)
+    post '/api/get_message/', params: { key: msgkey }
     puts response.body
   end
 
