@@ -1,11 +1,67 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+alice:
+  id: 1
+  key: "@To2Qx7zeHi8WEKRNixo9-inFVzZaYSrIlLtk4ek5oGY~ed25519"
+  pubkey: To2Qx7zeHi8WEKRNixo9-inFVzZaYSrIlLtk4ek5oGY~ed25519
+  prvkey: gF8sxtMKy4WCstSXT6uwzhck4pNsN6RbWy-iJivyJOg~ed25519
+  curve: ed25519
+  seq: 3
+  previous: "%HGNRyxDr18w22yiZV1Vm1xDzcKnDmNVyYt2NPN1qQ-w=~sha256"
+  name: alice
+  messages_count: 0
+  posts_count: 0
+  subposts_count: 0
+  votes_count: 0
+  following_count: 0
+  general_following_count: 0
+  is_following: true
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2018-06-05 12:43:47.774031000 Z
+    zone: !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  updated: 0
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+bob:
+  id: 2
+  key: "@Oyzfr49vwAWuJK0eQtd-jXXbqpM9zIWa95KBLOnbTd4~ed25519"
+  pubkey: Oyzfr49vwAWuJK0eQtd-jXXbqpM9zIWa95KBLOnbTd4~ed25519
+  prvkey: D9vJCDk35-vRKknn17HQWj5akILuSiZsjlplzYED2Fk~ed25519
+  curve: ed25519
+  seq: 0
+  name: bob
+  messages_count: 0
+  posts_count: 0
+  subposts_count: 0
+  votes_count: 0
+  following_count: 0
+  general_following_count: 0
+  is_following: true
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2018-06-05 12:43:47.778923000 Z
+    zone: !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  updated: 0
+
+cat:
+  id: 3
+  key: "@3f0vvkO9CotjnaZ7AjWUC5xuX-3Ufd5bXjNzbyBvqDA~ed25519"
+  pubkey: 3f0vvkO9CotjnaZ7AjWUC5xuX-3Ufd5bXjNzbyBvqDA~ed25519
+  prvkey: 4I8VCXojwVT2eqSH8jLdRLOK_52Tnltgxx0H9KlO6J8~ed25519
+  curve: ed25519
+  seq: 0
+  name: cat
+  messages_count: 0
+  posts_count: 0
+  subposts_count: 0
+  votes_count: 0
+  following_count: 0
+  general_following_count: 0
+  is_following: true
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2018-06-05 12:43:47.782202000 Z
+    zone: !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  updated: 0
+

@@ -1,11 +1,62 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+Message_1:
+  id: 1
+  key: "%LyW_43pcWiPbI7o7utESz4amcmDL-nFGIuieMBwzqiY=~sha256"
+  sig: X-mw3ZYI49lQgvM1DggRGT6UKn3BPFyfvXdhZwJ0C2gYJmNji0hOW_wz7mU2QzBT0azD0a2xj2AMevC3oDUtAQ~sig~ed25519
+  author: "@To2Qx7zeHi8WEKRNixo9-inFVzZaYSrIlLtk4ek5oGY~ed25519"
+  seq: 1
+  timestamp: 1528202627783
+  msgtype: post
+  raw: '{"sig":"X-mw3ZYI49lQgvM1DggRGT6UKn3BPFyfvXdhZwJ0C2gYJmNji0hOW_wz7mU2QzBT0azD0a2xj2AMevC3oDUtAQ~sig~ed25519","key":"%LyW_43pcWiPbI7o7utESz4amcmDL-nFGIuieMBwzqiY=~sha256","type":"post","content":{"title":"hello1","text":"test"},"author":"@To2Qx7zeHi8WEKRNixo9-inFVzZaYSrIlLtk4ek5oGY~ed25519","seq":1,"previous":null,"timestamp":1528202627783}'
+  content:
+    text: test
+    title: hello1
+  subposts_count: 0
+  votes_count: 0
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2018-06-05 12:43:47.813078000 Z
+    zone: !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-# one: {}
-# column: value
-#
-# two: {}
-# column: value
+Message_2:
+  id: 2
+  key: "%zummRwcLaPReyeCf9W_IqM9zh74J3qWUweePxdcBwFs=~sha256"
+  sig: 7gj6TvzByfwHRLyhpdtkVcO-YGwKtGWqvBiUKAMN_Uo0b-cWtWPItgqBqI2tnhV8Hhab3t2w0g-Zn58dQwM7BQ~sig~ed25519
+  author: "@To2Qx7zeHi8WEKRNixo9-inFVzZaYSrIlLtk4ek5oGY~ed25519"
+  seq: 2
+  previous: "%LyW_43pcWiPbI7o7utESz4amcmDL-nFGIuieMBwzqiY=~sha256"
+  timestamp: 1528202627820
+  msgtype: post
+  raw: '{"sig":"7gj6TvzByfwHRLyhpdtkVcO-YGwKtGWqvBiUKAMN_Uo0b-cWtWPItgqBqI2tnhV8Hhab3t2w0g-Zn58dQwM7BQ~sig~ed25519","key":"%zummRwcLaPReyeCf9W_IqM9zh74J3qWUweePxdcBwFs=~sha256","type":"post","content":{"title":"hello2","text":"test"},"author":"@To2Qx7zeHi8WEKRNixo9-inFVzZaYSrIlLtk4ek5oGY~ed25519","seq":2,"previous":"%LyW_43pcWiPbI7o7utESz4amcmDL-nFGIuieMBwzqiY=~sha256","timestamp":1528202627820}'
+  content:
+    text: test
+    title: hello2
+  subposts_count: 0
+  votes_count: 0
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2018-06-05 12:43:47.822197000 Z
+    zone: !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+
+Message_3:
+  id: 3
+  key: "%HGNRyxDr18w22yiZV1Vm1xDzcKnDmNVyYt2NPN1qQ-w=~sha256"
+  sig: 3E4CUCGZZmUUVptbV5sP1qwVj5K0QDHn97HgW_ny3ypxx1VZeNJpof6nyKs6V3D52Hs3vZiGG8IVJ8LOvCtLAw~sig~ed25519
+  author: "@To2Qx7zeHi8WEKRNixo9-inFVzZaYSrIlLtk4ek5oGY~ed25519"
+  seq: 3
+  previous: "%zummRwcLaPReyeCf9W_IqM9zh74J3qWUweePxdcBwFs=~sha256"
+  timestamp: 1528202627827
+  msgtype: post
+  raw: '{"sig":"3E4CUCGZZmUUVptbV5sP1qwVj5K0QDHn97HgW_ny3ypxx1VZeNJpof6nyKs6V3D52Hs3vZiGG8IVJ8LOvCtLAw~sig~ed25519","key":"%HGNRyxDr18w22yiZV1Vm1xDzcKnDmNVyYt2NPN1qQ-w=~sha256","type":"post","content":{"title":"hello3","text":"test"},"author":"@To2Qx7zeHi8WEKRNixo9-inFVzZaYSrIlLtk4ek5oGY~ed25519","seq":3,"previous":"%zummRwcLaPReyeCf9W_IqM9zh74J3qWUweePxdcBwFs=~sha256","timestamp":1528202627827}'
+  content:
+    text: test
+    title: hello3
+  subposts_count: 0
+  votes_count: 0
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2018-06-05 12:43:47.828887000 Z
+    zone: !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+
