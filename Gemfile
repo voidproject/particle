@@ -35,7 +35,6 @@ gem 'action_cable_client'
 
 gem 'rbnacl'
 gem 'google-protobuf'
-gem 'cztop'
 gem 'rest-client'
 
 group :development, :test do
